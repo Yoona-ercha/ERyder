@@ -14,7 +14,7 @@ public class ERyder {
 
     public ERyder(String bikeID , int batteryLevel , boolean isAvailable , double kmDriven){
         this.bikeID = bikeID;
-        setBatteryLevel(batteryLevel);
+        this.batteryLevel = batteryLevel;
         this.isAvailable = isAvailable;
         this.kmDriven = kmDriven;
     }
@@ -55,11 +55,7 @@ public class ERyder {
     }
 
     public void setBatteryLevel(int batteryLevel){
-        if(batteryLevel >= 0 && batteryLevel <=100){
-            this.batteryLevel = batteryLevel;
-        }else{
-            System.out.println("Invalid");
-        }
+        this.batteryLevel = batteryLevel;
     }
 
     public void setAvailable(boolean available){
