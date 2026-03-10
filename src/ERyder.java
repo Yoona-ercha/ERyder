@@ -15,7 +15,10 @@ public class ERyder {
     private boolean isAvailable;
     private double kmDriven;
 
-    public ERyder(){}
+    public ERyder(){
+        LINKED_ACCOUNT = "YOUDOG";
+        LINKED_PHONE_NUMBER = 244466666;
+    }
 
     public ERyder(String bikeID , int batteryLevel , boolean isAvailable , double kmDriven){
         this.bikeID = bikeID;
