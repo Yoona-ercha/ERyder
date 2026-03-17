@@ -22,5 +22,9 @@ public class Main {
 
         System.out.println(feedback);
 
+        UserRegistration user = new UserRegistration();
+        user.registration();
+        System.out.println(user);
+
     }
 }
