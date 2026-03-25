@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args){
+        /* 
         ERyder bike = new ERyder("A1234" , 90 , true , 123.4);
         bike.ride();
         bike.printBikeDetails();
@@ -25,6 +26,10 @@ public class Main {
         UserRegistration user = new UserRegistration();
         user.registration();
         System.out.println(user);
+        */
+    
+        AdminPanel adminPanel = new AdminPanel();
+        adminPanel.userManagementOptions();
 
     }
 }
