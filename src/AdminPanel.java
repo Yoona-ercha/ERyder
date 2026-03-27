@@ -17,7 +17,8 @@ public class AdminPanel {
             System.out.println("2. View Registered Users");
             System.out.println("3. Remove Registered Users");
             System.out.println("4. Update Registered Users");
-            System.out.println("5. EXIT");
+            System.out.println("5. Demo the Bike Rental System");
+            System.out.println("6. EXIT");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -31,6 +32,9 @@ public class AdminPanel {
             }else if(choice == 4){
                 updateRegisteredUsers();
             }else if(choice == 5){
+                BikeRental bikeRental = new BikeRental();
+                bikeRental.simulateApplicationInput();
+            }else if(choice == 6){
                 break;
             }else{
                 System.out.println("Invalid choice. Please try again.");
