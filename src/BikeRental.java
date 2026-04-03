@@ -139,5 +139,12 @@ public class BikeRental {
 
     }
 
+    public String getBikeID(){
+        return bikeID;
+    }
+
+    public String getLocation(){
+        return location;
+    }
 
 }

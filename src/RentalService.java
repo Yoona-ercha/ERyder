@@ -1,5 +1,7 @@
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Iterator;
 
 public class RentalService {
 
@@ -9,12 +11,17 @@ public class RentalService {
     private String bikeID;
     private boolean locationValid;
 
+    private RegisteredUsers currentUser;
+    public static final double BASE_FARE = 3.0;
+
     UserRegistration userRegistration = new UserRegistration();
     BikeService bikeService = new BikeService();
 
     LinkedList<ActiveRental> activeRentalList = new LinkedList<>();
 
-    public void simulateApplicationInput(){
+    public void simulateApplicationInput(RegisteredUsers user){
+        this.currentUser = user;
+        
         System.out.println("This is the simulation of the e-bike rental process.");
 
         Scanner sc = new Scanner(System.in);
@@ -49,7 +56,7 @@ public class RentalService {
 
         System.out.println("Simulating the end of the trip...");
 
-        bikeService.removeTrip(bikeID);
+        removeTrip(bikeID);
 
         System.out.println("Displaying the active rentals after trip end...");
 
@@ -78,6 +85,31 @@ public class RentalService {
                 System.out.println(rental);
             }
         }
+    }
+
+    private void removeTrip(String bikeID){
+        Iterator<ActiveRental> iterator = activeRentalList.iterator();
+        while(iterator.hasNext()){
+            ActiveRental rental = iterator.next();
+            if(bikeID.equals(rental.getBikeID())){
+                iterator.remove();
+                break;
+            }
+        }
+
+        for(Bike bike : BikeDatabase.bikes){
+            if(bikeID.equals(bike.getBikeID())){
+                bike.setIsAvailable(true);
+                bike.setLastUsedTime(LocalDateTime.now());
+                System.out.println("Your trip has ended. Thank you for riding with us.");
+                break;
+            }
+        }
+
+        double finalFare = currentUser.calculateFare(BASE_FARE);
+        currentUser.displayUserType();
+        System.out.println("Final Fare: " + finalFare);
+
     }
 
 }

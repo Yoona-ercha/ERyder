@@ -6,7 +6,8 @@ public class UserService {
 
     ArrayList<RegisteredUsers> registeredUsersList = new ArrayList<>();
 
-    public void addNewUsers(){
+    public RegisteredUsers addNewUsers(){
+        RegisteredUsers lastCreateUser = null;
         Scanner sc = new Scanner(System.in);
         System.out.println("How many users would like to add: ");
         int newUsers = sc.nextInt();
@@ -71,12 +72,21 @@ public class UserService {
                 lastThreeTrips[j] = sb.toString();
             }
 
-            RegisteredUsers newUser = new RegisteredUsers(fullName, emailAddress, dateOfBirth, cardNumber, cardExpiryDate, cardProvider, cvv, userType, lastThreeTrips);
+            RegisteredUsers newUser;
+
+            if(userType.equalsIgnoreCase("VIP")){
+                newUser = new VIPUser(fullName, emailAddress, dateOfBirth, cardNumber, cardExpiryDate, cardProvider, cvv, userType, lastThreeTrips);
+            }else{
+                newUser = new RegularUser(fullName, emailAddress, dateOfBirth, cardNumber, cardExpiryDate, cardProvider, cvv, userType, lastThreeTrips);
+            }
 
             registeredUsersList.add(newUser);
-        }
+            lastCreateUser = newUser;
+            }
 
         sc.close();
+
+        return lastCreateUser;
     }
 
     public void viewRegisteredUsers(){
@@ -208,5 +218,6 @@ public class UserService {
         }
     }
 
+    
 }
 

@@ -1,6 +1,8 @@
 import java.util.LinkedList;
 import java.time.LocalDateTime;
 import java.util.Iterator;
+import java.util.Queue;
+import java.util.ArrayDeque;
 
 public class BikeService {
 
@@ -11,6 +13,7 @@ public class BikeService {
     UserRegistration userRegistration = new UserRegistration();
     LinkedList<ActiveRental> activeRentalList = new LinkedList<>();
     RentalService rentalService = new RentalService();
+    Queue<BikeRequest> queue = new ArrayDeque<>();
 
     public void reserveBike(String bikeID){
         if(bikeID != null){
@@ -27,6 +30,9 @@ public class BikeService {
             }
         }else{
             System.out.println("Sorry, we're unable to reserve a bike at this time. Please try again later.");
+            String location = "";
+            BikeRequest request = new BikeRequest(emailAddress, location, LocalDateTime.now());
+            queue.offer(request);
         }
 
     }
@@ -72,6 +78,14 @@ public class BikeService {
                 bike.setLastUsedTime(LocalDateTime.now());
                 System.out.println("Your trip has ended. Thank you for riding with us.");
                 break;
+            }
+        }
+
+        if(!queue.isEmpty()){
+            BikeRequest nextRequest = queue.poll();
+            String nextBikeID = validateLocation(nextRequest.getLocation());
+            if(nextBikeID != null){
+                reserveBike(nextBikeID);
             }
         }
 
